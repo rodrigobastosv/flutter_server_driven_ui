@@ -1,2 +1,3 @@
-- Criar estrutura que monte a árvore recursivamente
+- ✅ Criar estrutura que monte a árvore recursivamente
+- Criar suporte a Gestures
 - 
