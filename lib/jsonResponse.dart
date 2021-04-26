@@ -32,6 +32,9 @@ final jsonResponse2 = {
     'type': 'text',
     'data': {
       'label': 'teste apenas com texto',
+      'style': {
+        'fontWeight': 'bold',
+      },
     },
   }
 };

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:server_driven_ui/jsonResponse.dart';
 
 import 'ui_builder.dart';
 
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: SafeArea(
-          child: UIBuilder(),
+          child: UiBuilder(json: jsonResponse),
         ),
       ),
     );

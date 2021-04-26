@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:server_driven_ui/jsonResponse.dart';
 
 import 'utils.dart';
 
-class UIBuilder extends StatefulWidget {
-  UIBuilder({Key key}) : super(key: key);
+class UiBuilder extends StatefulWidget {
+  UiBuilder({
+    Key key,
+    @required this.json,
+  }) : super(key: key);
+
+  final Map json;
 
   @override
-  _UIBuilderState createState() => _UIBuilderState();
+  _UiBuilderState createState() => _UiBuilderState();
 }
 
-class _UIBuilderState extends State<UIBuilder> {
+class _UiBuilderState extends State<UiBuilder> {
   bool loading = true;
   Widget widgetToBuild;
 
   @override
   void initState() {
-    buildUIFromResponse(jsonResponse3).then((widget) {
+    buildUiFromResponse(widget.json).then((widget) {
       setState(() {
         widgetToBuild = widget;
         loading = false;

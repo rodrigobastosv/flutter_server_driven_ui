@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
 
+import 'widget_builders/text_builder.dart';
 import 'widgets.dart';
 
-Future<Widget> buildUIFromResponse(Map jsonResponse) async {
+Future<Widget> buildUiFromResponse(Map jsonResponse) async {
   final key = jsonResponse['content']['type'];
-  final widgetType = fromKey(key);
+  final widgetType = fromStringType(key);
   final isRoot = isRootWidget(widgetType);
   if (isRoot) {
     final children = jsonResponse['content']['data']['children'] as List;
     final childrenWidget = _getChildrenWidgets(children);
-    return widgetType == WidgetEnum.column
-        ? Column(
-            children: childrenWidget,
-          )
-        : Row(
-            children: childrenWidget,
-          );
-  } else {
-    if (widgetType == WidgetEnum.text) {
-      return Text(jsonResponse['content']['data']['label']);
-    }
+    return _getRootWidgetByType(
+      type: widgetType,
+      childrenWidget: childrenWidget,
+    );
   }
-
-  return SizedBox.shrink();
+  return _getLeafWidgetByType(
+    type: widgetType,
+    data: jsonResponse['content']['data'],
+  );
 }
 
 List<Widget> _getChildrenWidgets(List<Map> children) {
@@ -34,31 +30,50 @@ List<Widget> _getChildrenWidgets(List<Map> children) {
 }
 
 Widget _geWidgetFromChild(Map child) {
-  final widgetType = fromKey(child['type']);
+  final widgetType = fromStringType(child['type']);
   final isRoot = isRootWidget(widgetType);
   if (isRoot) {
     final childrenWidget = _getChildrenWidgets(child['data']['children']);
-    return widgetType == WidgetEnum.column
-        ? Column(
-            children: childrenWidget,
-          )
-        : Row(
-            children: childrenWidget,
-          );
-  } else {
-    if (widgetType == WidgetEnum.text) {
-      return Text(child['data']['label']);
-    }
+    return _getRootWidgetByType(
+      type: widgetType,
+      childrenWidget: childrenWidget,
+    );
+  }
+  return _getLeafWidgetByType(
+    type: widgetType,
+    data: child['data'],
+  );
+}
+
+Widget _getRootWidgetByType({
+  WidgetType type,
+  List<Widget> childrenWidget,
+}) {
+  return type == WidgetType.column
+      ? Column(
+          children: childrenWidget,
+        )
+      : Row(
+          children: childrenWidget,
+        );
+}
+
+Widget _getLeafWidgetByType({
+  WidgetType type,
+  Map data,
+}) {
+  if (type == WidgetType.text) {
+    return textBuilder(data);
   }
   return SizedBox.shrink();
 }
 
-bool isRootWidget(WidgetEnum widget) {
+bool isRootWidget(WidgetType widget) {
   switch (widget) {
-    case WidgetEnum.column:
-    case WidgetEnum.row:
+    case WidgetType.column:
+    case WidgetType.row:
       return true;
-    case WidgetEnum.text:
+    case WidgetType.text:
       return false;
   }
   throw Exception();

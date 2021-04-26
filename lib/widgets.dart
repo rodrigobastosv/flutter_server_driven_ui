@@ -1,21 +1,21 @@
-enum WidgetEnum {
+enum WidgetType {
   column,
   row,
   text,
 }
 
-extension WidgetEnumExt on WidgetEnum {
+extension WidgetTypeExt on WidgetType {
   String get toKey => this.toString();
 }
 
-WidgetEnum fromKey(String key) {
-  switch (key) {
+WidgetType fromStringType(String type) {
+  switch (type) {
     case 'column':
-      return WidgetEnum.column;
+      return WidgetType.column;
     case 'row':
-      return WidgetEnum.row;
+      return WidgetType.row;
     case 'text':
-      return WidgetEnum.text;
+      return WidgetType.text;
     default:
       throw Exception();
   }
