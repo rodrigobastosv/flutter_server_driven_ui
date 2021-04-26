@@ -122,3 +122,14 @@ final jsonResponseListView = {
     },
   }
 };
+
+final jsonBasicContainer = {
+  'content': {
+    'type': 'container',
+    'data': {
+      'width': 100.0,
+      'height': 100.0,
+      'color': 'red',
+    },
+  }
+};

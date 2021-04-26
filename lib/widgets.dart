@@ -2,6 +2,8 @@ enum WidgetType {
   column,
   row,
   listView,
+
+  container,
   text,
   listTile,
 }
@@ -22,6 +24,8 @@ WidgetType fromStringType(String type) {
       return WidgetType.listView;
     case 'listTile':
       return WidgetType.listTile;
+    case 'container':
+      return WidgetType.container;
     default:
       throw Exception();
   }

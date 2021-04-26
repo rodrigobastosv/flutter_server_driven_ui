@@ -17,8 +17,19 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        body: SafeArea(
-          child: UiBuilder(json: jsonResponseListView),
+        body: Column(
+          children: [
+            Expanded(
+              child: UiBuilder(json: jsonResponseListView),
+            ),
+            Expanded(
+              child: UiBuilder(json: jsonResponseBasic),
+            ),
+            Expanded(
+              child: UiBuilder(json: jsonResponseSingleText),
+            ),
+            UiBuilder(json: jsonBasicContainer),
+          ],
         ),
       ),
     );

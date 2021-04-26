@@ -18,11 +18,11 @@ Widget _buildFromRoot({
   @required Map data,
 }) {
   final widgetType = fromStringType(type);
-  final isRoot = _hasChildrenWidget(widgetType);
-  if (isRoot) {
+  final hasChildren = _hasChildrenWidget(widgetType);
+  if (hasChildren) {
     final children = data['children'] as List;
     final childrenWidget = _getChildrenWidgets(children);
-    return _getRootWidgetByType(
+    return _getWidgetWithChildrenByType(
       type: widgetType,
       data: data,
       childrenWidget: childrenWidget,
@@ -44,12 +44,12 @@ List<Widget> _getChildrenWidgets(List<Map> children) {
 
 Widget _geWidgetFromChild(Map child) {
   final widgetType = fromStringType(child['type']);
-  final isRoot = _hasChildrenWidget(widgetType);
-  if (isRoot) {
-    final data = child['data'];
+  final data = child['data'];
+  final hasChildren = _hasChildrenWidget(widgetType);
+  if (hasChildren) {
     final children = data['children'] as List;
     final childrenWidget = _getChildrenWidgets(children);
-    return _getRootWidgetByType(
+    return _getWidgetWithChildrenByType(
       type: widgetType,
       data: data,
       childrenWidget: childrenWidget,
@@ -57,11 +57,11 @@ Widget _geWidgetFromChild(Map child) {
   }
   return _getLeafWidgetByType(
     type: widgetType,
-    data: child['data'],
+    data: data,
   );
 }
 
-Widget _getRootWidgetByType({
+Widget _getWidgetWithChildrenByType({
   @required WidgetType type,
   @required Map data,
   @required List<Widget> childrenWidget,
@@ -96,6 +96,8 @@ Widget _getLeafWidgetByType({
       return textBuilder(data);
     case WidgetType.listTile:
       return listTileBuilder(data);
+    case WidgetType.container:
+      return containerBuilder(data);
     default:
       throw Exception();
   }
@@ -107,6 +109,7 @@ bool _hasChildrenWidget(WidgetType widget) {
     case WidgetType.row:
     case WidgetType.listView:
       return true;
+    case WidgetType.container:
     case WidgetType.text:
     case WidgetType.listTile:
       return false;
