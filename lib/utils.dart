@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'widget_builders/text_builder.dart';
+import 'builders/builders.dart';
 import 'widgets.dart';
 
 Future<Widget> buildUiFromResponse(Map jsonResponse) async {
@@ -8,10 +8,12 @@ Future<Widget> buildUiFromResponse(Map jsonResponse) async {
   final widgetType = fromStringType(key);
   final isRoot = isRootWidget(widgetType);
   if (isRoot) {
-    final children = jsonResponse['content']['data']['children'] as List;
+    final data = jsonResponse['content']['data'];
+    final children = data['children'] as List;
     final childrenWidget = _getChildrenWidgets(children);
     return _getRootWidgetByType(
       type: widgetType,
+      data: data,
       childrenWidget: childrenWidget,
     );
   }
@@ -33,9 +35,11 @@ Widget _geWidgetFromChild(Map child) {
   final widgetType = fromStringType(child['type']);
   final isRoot = isRootWidget(widgetType);
   if (isRoot) {
-    final childrenWidget = _getChildrenWidgets(child['data']['children']);
+    final data = child['data'];
+    final childrenWidget = _getChildrenWidgets(data['children']);
     return _getRootWidgetByType(
       type: widgetType,
+      data: data,
       childrenWidget: childrenWidget,
     );
   }
@@ -46,21 +50,24 @@ Widget _geWidgetFromChild(Map child) {
 }
 
 Widget _getRootWidgetByType({
-  WidgetType type,
-  List<Widget> childrenWidget,
+  @required WidgetType type,
+  @required Map data,
+  @required List<Widget> childrenWidget,
 }) {
   return type == WidgetType.column
-      ? Column(
+      ? columnBuilder(
+          data: data,
           children: childrenWidget,
         )
-      : Row(
+      : rowBuilder(
+          data: data,
           children: childrenWidget,
         );
 }
 
 Widget _getLeafWidgetByType({
-  WidgetType type,
-  Map data,
+  @required WidgetType type,
+  @required Map data,
 }) {
   if (type == WidgetType.text) {
     return textBuilder(data);

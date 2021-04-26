@@ -2,10 +2,12 @@ final jsonResponse = {
   'content': {
     'type': 'column',
     'data': {
+      'mainAxisAlignment': 'spaceAround',
       'children': [
         {
           'type': 'column',
           'data': {
+            'mainAxisAlignment': 'center',
             'children': [
               {
                 'type': 'text',
@@ -43,6 +45,7 @@ final jsonResponse3 = {
   'content': {
     'type': 'column',
     'data': {
+      'mainAxisAlignment': 'spaceAround',
       'children': [
         {
           'type': 'column',
@@ -66,6 +69,7 @@ final jsonResponse3 = {
         {
           'type': 'row',
           'data': {
+            'mainAxisAlignment': 'center',
             'children': [
               {
                 'type': 'text',

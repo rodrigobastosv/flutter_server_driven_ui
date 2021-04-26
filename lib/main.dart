@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       ),
       home: Scaffold(
         body: SafeArea(
-          child: UiBuilder(json: jsonResponse),
+          child: UiBuilder(json: jsonResponse3),
         ),
       ),
     );
