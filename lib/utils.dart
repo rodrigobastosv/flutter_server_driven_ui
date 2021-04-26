@@ -3,12 +3,23 @@ import 'package:flutter/material.dart';
 import 'builders/builders.dart';
 import 'widgets.dart';
 
-Future<Widget> buildUiFromResponse(Map jsonResponse) async {
-  final key = jsonResponse['content']['type'];
-  final widgetType = fromStringType(key);
-  final isRoot = isRootWidget(widgetType);
+Widget buildUiFromResponse(Map jsonResponse) {
+  final type = jsonResponse['content']['type'];
+  final data = jsonResponse['content']['data'];
+
+  return _buildFromRoot(
+    type: type,
+    data: data,
+  );
+}
+
+Widget _buildFromRoot({
+  @required String type,
+  @required Map data,
+}) {
+  final widgetType = fromStringType(type);
+  final isRoot = _hasChildrenWidget(widgetType);
   if (isRoot) {
-    final data = jsonResponse['content']['data'];
     final children = data['children'] as List;
     final childrenWidget = _getChildrenWidgets(children);
     return _getRootWidgetByType(
@@ -19,7 +30,7 @@ Future<Widget> buildUiFromResponse(Map jsonResponse) async {
   }
   return _getLeafWidgetByType(
     type: widgetType,
-    data: jsonResponse['content']['data'],
+    data: data,
   );
 }
 
@@ -33,10 +44,11 @@ List<Widget> _getChildrenWidgets(List<Map> children) {
 
 Widget _geWidgetFromChild(Map child) {
   final widgetType = fromStringType(child['type']);
-  final isRoot = isRootWidget(widgetType);
+  final isRoot = _hasChildrenWidget(widgetType);
   if (isRoot) {
     final data = child['data'];
-    final childrenWidget = _getChildrenWidgets(data['children']);
+    final children = data['children'] as List;
+    final childrenWidget = _getChildrenWidgets(children);
     return _getRootWidgetByType(
       type: widgetType,
       data: data,
@@ -54,33 +66,49 @@ Widget _getRootWidgetByType({
   @required Map data,
   @required List<Widget> childrenWidget,
 }) {
-  return type == WidgetType.column
-      ? columnBuilder(
-          data: data,
-          children: childrenWidget,
-        )
-      : rowBuilder(
-          data: data,
-          children: childrenWidget,
-        );
+  switch (type) {
+    case WidgetType.column:
+      return columnBuilder(
+        data: data,
+        children: childrenWidget,
+      );
+    case WidgetType.column:
+      return rowBuilder(
+        data: data,
+        children: childrenWidget,
+      );
+    case WidgetType.listView:
+      return listViewBuilder(
+        data: data,
+        children: childrenWidget,
+      );
+    default:
+      throw Exception();
+  }
 }
 
 Widget _getLeafWidgetByType({
   @required WidgetType type,
   @required Map data,
 }) {
-  if (type == WidgetType.text) {
-    return textBuilder(data);
+  switch (type) {
+    case WidgetType.text:
+      return textBuilder(data);
+    case WidgetType.listTile:
+      return listTileBuilder(data);
+    default:
+      throw Exception();
   }
-  return SizedBox.shrink();
 }
 
-bool isRootWidget(WidgetType widget) {
+bool _hasChildrenWidget(WidgetType widget) {
   switch (widget) {
     case WidgetType.column:
     case WidgetType.row:
+    case WidgetType.listView:
       return true;
     case WidgetType.text:
+    case WidgetType.listTile:
       return false;
   }
   throw Exception();

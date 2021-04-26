@@ -1,4 +1,4 @@
-final jsonResponse = {
+final jsonResponseBasic = {
   'content': {
     'type': 'column',
     'data': {
@@ -29,7 +29,7 @@ final jsonResponse = {
   }
 };
 
-final jsonResponse2 = {
+final jsonResponseSingleText = {
   'content': {
     'type': 'text',
     'data': {
@@ -41,7 +41,7 @@ final jsonResponse2 = {
   }
 };
 
-final jsonResponse3 = {
+final jsonResponseColumnAndRow = {
   'content': {
     'type': 'column',
     'data': {
@@ -94,5 +94,31 @@ final jsonResponse3 = {
         },
       ],
     }
+  }
+};
+
+final jsonResponseListView = {
+  'content': {
+    'type': 'listView',
+    'data': {
+      'children': [
+        {
+          'type': 'listTile',
+          'data': {
+            'title': {
+              'label': 'label listtile 1'
+            },
+          },
+        },
+        {
+          'type': 'listTile',
+          'data': {
+            'title': {
+              'label': 'label listtile 2'
+            },
+          },
+        },
+      ],
+    },
   }
 };

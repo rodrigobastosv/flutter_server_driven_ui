@@ -15,22 +15,16 @@ class UiBuilder extends StatefulWidget {
 }
 
 class _UiBuilderState extends State<UiBuilder> {
-  bool loading = true;
   Widget widgetToBuild;
 
   @override
   void initState() {
-    buildUiFromResponse(widget.json).then((widget) {
-      setState(() {
-        widgetToBuild = widget;
-        loading = false;
-      });
-    });
+    widgetToBuild = buildUiFromResponse(widget.json);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return loading ? CircularProgressIndicator() : widgetToBuild;
+    return widgetToBuild;
   }
 }

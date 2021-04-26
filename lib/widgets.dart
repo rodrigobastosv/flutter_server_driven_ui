@@ -1,7 +1,9 @@
 enum WidgetType {
   column,
   row,
+  listView,
   text,
+  listTile,
 }
 
 extension WidgetTypeExt on WidgetType {
@@ -16,6 +18,10 @@ WidgetType fromStringType(String type) {
       return WidgetType.row;
     case 'text':
       return WidgetType.text;
+    case 'listView':
+      return WidgetType.listView;
+    case 'listTile':
+      return WidgetType.listTile;
     default:
       throw Exception();
   }
