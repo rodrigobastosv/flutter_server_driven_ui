@@ -126,6 +126,10 @@ final jsonResponseListView = {
 final jsonBasicContainer = {
   'content': {
     'type': 'container',
+    'action': {
+      'type': 'navigation',
+      'target': '/testRoute'
+    },
     'data': {
       'width': 100.0,
       'height': 100.0,

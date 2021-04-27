@@ -19,7 +19,7 @@ class _UiBuilderState extends State<UiBuilder> {
 
   @override
   void initState() {
-    widgetToBuild = buildUiFromResponse(widget.json);
+    widgetToBuild = buildUiFromResponse(context, widget.json);
     super.initState();
   }
 
