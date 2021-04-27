@@ -129,7 +129,7 @@ final jsonBasicContainer = {
     'data': {
       'width': 100.0,
       'height': 100.0,
-      'color': 'red',
+      'color': '4f958d',
     },
   }
 };
