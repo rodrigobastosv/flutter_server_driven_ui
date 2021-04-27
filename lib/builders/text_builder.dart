@@ -7,7 +7,7 @@ Text textBuilder(Map data) {
     data[TextProps.label],
     style: style != null
         ? TextStyle(
-            fontWeight: style['fontWeight'] == 'bold'
+            fontWeight: style[StyleProps.style] == 'bold'
                 ? FontWeight.bold
                 : FontWeight.normal,
           )
