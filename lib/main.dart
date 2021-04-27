@@ -16,6 +16,11 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      routes: {
+        '/testRoute': (context) => Scaffold(
+          backgroundColor: Color(0xFF4f958d),
+        )
+      },
       home: Scaffold(
         body: Column(
           children: [

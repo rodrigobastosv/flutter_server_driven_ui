@@ -12,7 +12,7 @@ extension WidgetTypeExt on WidgetType {
   String get toKey => this.toString();
 }
 
-WidgetType fromStringType(String type) {
+WidgetType getWidgetfromStringType(String type) {
   switch (type) {
     case 'column':
       return WidgetType.column;

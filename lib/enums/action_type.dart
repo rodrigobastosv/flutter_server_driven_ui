@@ -6,7 +6,7 @@ extension ActionTypeExt on ActionType {
   String get toKey => this.toString();
 }
 
-ActionType fromStringType(String type) {
+ActionType getActionFromStringType(String type) {
   switch (type) {
     case 'navigation':
       return ActionType.navigation;

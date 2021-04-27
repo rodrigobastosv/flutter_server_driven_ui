@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'engine.dart';
+import 'engine/core.dart';
 
 class UiBuilder extends StatefulWidget {
   UiBuilder({
