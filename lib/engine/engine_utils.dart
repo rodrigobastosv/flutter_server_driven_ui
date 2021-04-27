@@ -1,7 +1,8 @@
 import 'package:server_driven_ui/enums/widget_type.dart';
+import 'package:server_driven_ui/utils/utils.dart';
 
 bool validateJson(Map json) {
-  if (json['content'] == null) {
+  if (json[JsonUtils.content] == null) {
     throw Exception('The Json must have the content property.');
   }
   return true;

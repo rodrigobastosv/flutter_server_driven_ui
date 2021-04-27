@@ -18,10 +18,10 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/testRoute': (context) => Scaffold(
-          backgroundColor: Color(0xFF4f958d),
-        )
+              backgroundColor: Color(0xFF4f958d),
+            )
       },
-      home: Scaffold(
+      /*home: Scaffold(
         body: Column(
           children: [
             Expanded(
@@ -36,6 +36,9 @@ class MyApp extends StatelessWidget {
             UiBuilder(json: jsonBasicContainer),
           ],
         ),
+      ),*/
+      home: Scaffold(
+        body: UiBuilder(json: jsonBeautifulPage),
       ),
     );
   }

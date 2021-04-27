@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:server_driven_ui/enums/enums.dart';
+import 'package:server_driven_ui/utils/utils.dart';
 
 import 'builder_utils.dart';
 import 'engine.dart';
 
 Widget buildUiFromResponse(BuildContext context, Map jsonResponse) {
   if (validateJson(jsonResponse)) {
-    final type = jsonResponse['content']['type'];
-    final data = jsonResponse['content']['data'];
-    final action = jsonResponse['content']['action'];
+    final content = jsonResponse[JsonUtils.content];
+    final type = content[JsonUtils.type];
+    final data = content[JsonUtils.data];
+    final action = content[JsonUtils.action];
 
     return _buildFromRoot(
       context: context,
@@ -31,7 +33,7 @@ Widget _buildFromRoot({
   final hasGesture = action != null;
   Widget widget;
   if (hasChildren) {
-    final children = data['children'] as List;
+    final children = data[JsonUtils.children] as List;
     final childrenWidget = _getChildrenWidgets(context, children);
     widget = getWidgetWithChildrenByType(
       type: widgetType,
@@ -55,9 +57,9 @@ List<Widget> _getChildrenWidgets(BuildContext context, List<Map> children) {
     childrenWidgets.add(
       _buildFromRoot(
         context: context,
-        type: child['type'],
-        data: child['data'],
-        action: child['action'],
+        type: child[JsonUtils.type],
+        data: child[JsonUtils.data],
+        action: child[JsonUtils.action],
       ),
     );
   }

@@ -9,7 +9,7 @@ enum WidgetType {
 }
 
 extension WidgetTypeExt on WidgetType {
-  String get toKey => this.toString();
+  String get asString => getStringFromWidgetType(this);
 }
 
 WidgetType getWidgetfromStringType(String type) {
@@ -26,6 +26,25 @@ WidgetType getWidgetfromStringType(String type) {
       return WidgetType.listTile;
     case 'container':
       return WidgetType.container;
+    default:
+      throw Exception();
+  }
+}
+
+String getStringFromWidgetType(WidgetType type) {
+  switch (type) {
+    case WidgetType.column:
+      return 'column';
+    case WidgetType.row:
+      return 'row';
+    case WidgetType.text:
+      return 'text';
+    case WidgetType.listView:
+      return 'listView';
+    case WidgetType.listTile:
+      return 'listTile';
+    case WidgetType.container:
+      return 'container';
     default:
       throw Exception();
   }
